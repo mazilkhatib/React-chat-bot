@@ -3,20 +3,10 @@ import BotMessage from './BotMessage';
 import './style.css'
 
 const Chatbot = () => {
-
-  const getLocalData = () => {
-        const lists = localStorage.getItem("myMessageList");
-      
-        if (lists) {
-          return JSON.parse(lists);
-        } else {
-          return [];
-        }
-  };  
-
+    
   const [style, setStyle] = useState("content");
-  const [items, setItems] = useState(getLocalData());
-  const [userInput,setUserInput] = useState("");
+  const [items, setItems] = useState([]);
+  let [userInput,setUserInput] = useState("");
   
   const changeStyle = () => {
 
