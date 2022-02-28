@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import BotMessage from './BotMessage';
 import './style.css'
 
@@ -7,9 +7,13 @@ const Chatbot = () => {
   const [style, setStyle] = useState("content");
   const [items, setItems] = useState([]);
   let [userInput,setUserInput] = useState("");
+  const scrollView = useRef(null);
+
+  const ScrollUp = () =>{
+      scrollView.current.scrollIntoView(true);
+  }
   
   const changeStyle = () => {
-
         if(style==='content'){
             setStyle("content1");
             
@@ -74,7 +78,7 @@ const Chatbot = () => {
         if(userInput){
             addMessage(userInput)
         }
-        document.getElementById("chat-bar-bottom").scrollIntoView(true);
+        ScrollUp();
    }
 
   return (
@@ -107,7 +111,7 @@ const Chatbot = () => {
                                     </p>
                                     <p className='messageTime'><span>{item.userTimeDisplay}</span></p>
 
-                                     <BotMessage botText={item.botText} botTimeDisplay={item.botTimeDisplay} getRandomSeconds={item.getRandomSeconds} />  
+                                     <BotMessage botText={item.botText} botTimeDisplay={item.botTimeDisplay} getRandomSeconds={item.getRandomSeconds} ScrollUp={ScrollUp}/>  
 
                                     </div>
                                 );
@@ -141,7 +145,7 @@ const Chatbot = () => {
                             </div>
                         </div>
 
-                        <div id="chat-bar-bottom">
+                        <div id="chat-bar-bottom" ref={scrollView}>
                             <p></p>
                         </div>
 
